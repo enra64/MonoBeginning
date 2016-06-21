@@ -16,6 +16,7 @@ namespace Beginning
 		GraphicsDeviceManager graphics;
 		Player player;
 		Camera camera;
+		CheckerBoard cB;
 
 		public Game1 ()
 		{
@@ -33,6 +34,7 @@ namespace Beginning
 		{
 			base.Initialize ();
 
+			cB.Initialize ();
 
 			camera = new Camera();
 			camera.Position = new Vector3(0, 100, 0);
@@ -42,8 +44,6 @@ namespace Beginning
 			camera.NearClipPlane = 0.1f;
 			camera.FarClipPlane = 10000f;
 			camera.AspectRatio = graphics.GraphicsDevice.DisplayMode.AspectRatio;
-
-
 		}
 
 		/// <summary>
@@ -52,6 +52,9 @@ namespace Beginning
 		/// </summary>
 		protected override void LoadContent ()
 		{
+			cB = new CheckerBoard (graphics, this.GraphicsDevice);
+			cB.LoadContent ();
+
 			player = new Player ();
 			player.LoadContent (Content, "Graphics/robot");
 		}
@@ -63,18 +66,11 @@ namespace Beginning
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update (GameTime gameTime)
 		{
-			// For Mobile devices, this logic will close the Game when the Back button is pressed
-			// Exit() is obsolete on iOS
-			#if !__IOS__ &&  !__TVOS__
-			if (GamePad.GetState (PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState ().IsKeyDown (Keys.Escape))
-				Exit ();
-			#endif
-            
-			// TODO: Add your update logic here
-            
-			base.Update (gameTime);
-			player.Update (gameTime);
-			camera.Update (gameTime);
+			// update logic
+			base.Update(gameTime);
+			cB.Update (gameTime);
+			player.Update(gameTime);
+			camera.Update(gameTime);
 		}
 
 		/// <summary>
@@ -84,10 +80,9 @@ namespace Beginning
 		protected override void Draw (GameTime gameTime)
 		{
 			graphics.GraphicsDevice.Clear (Color.CornflowerBlue);
-            
-			player.Draw (camera);
-            
-			base.Draw (gameTime);
+			cB.Draw (camera);
+            player.Draw (camera);
+            base.Draw (gameTime);
 		}
 	}
 }

@@ -18,9 +18,9 @@ namespace Beginning
 		public abstract void Update(GameTime time);
 
 		public virtual void Draw(Camera c){
+			// apply basic effects
 			foreach (var m in Model.Meshes) {
-				foreach (BasicEffect effect in m.Effects)
-				{
+				foreach (BasicEffect effect in m.Effects){
 					effect.EnableDefaultLighting();
 					effect.PreferPerPixelLighting = true;
 					effect.World = RotationMatrix * Matrix.CreateWorld(Position, Vector3.UnitX, Vector3.UnitY);

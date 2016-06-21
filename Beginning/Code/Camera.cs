@@ -14,9 +14,13 @@ namespace Beginning
 		public Vector3 Target;
 		public Vector3 UpVector;
 
-		public Matrix ViewMatrix
-		{
-			get { return Matrix.CreateLookAt(Position, Target, UpVector); }
+		public Matrix ViewMatrix {
+			get {
+				Vector3 target = Vector3.Zero;
+				Vector3 upVector = Vector3.UnitZ;
+
+				return Matrix.CreateLookAt (Position, target, upVector);
+			}
 		}
 
 		public Matrix ProjectionMatrix
@@ -26,18 +30,25 @@ namespace Beginning
 
 		public void Update(GameTime gameTime)
 		{
-			if (Keyboard.GetState().IsKeyDown(Keys.J))
-				Position = Position + new Vector3(1, 0, 0);
+			if (Keyboard.GetState ().IsKeyDown (Keys.I))
+				Position = Vector3.Transform(Position, Matrix.Identity * Matrix.CreateRotationX(.05f));
+			if (Keyboard.GetState ().IsKeyDown (Keys.K))
+				Position = Vector3.Transform(Position, Matrix.Identity * Matrix.CreateRotationX(-.05f));
+
+			if (Keyboard.GetState ().IsKeyDown (Keys.Z))
+				Position = Vector3.Transform(Position, Matrix.Identity * Matrix.CreateRotationY(.05f));
+			if (Keyboard.GetState ().IsKeyDown (Keys.H))
+				Position = Vector3.Transform(Position, Matrix.Identity * Matrix.CreateRotationY(-.05f));
+
+			if (Keyboard.GetState ().IsKeyDown (Keys.U))
+				Position = Vector3.Transform(Position, Matrix.Identity * Matrix.CreateRotationZ(.05f));
+			if (Keyboard.GetState ().IsKeyDown (Keys.J))
+				Position = Vector3.Transform(Position, Matrix.Identity * Matrix.CreateRotationZ(-.05f));
+			
 			if (Keyboard.GetState().IsKeyDown(Keys.L))
-				Position = Position - new Vector3(1, 0, 0);
-			if (Keyboard.GetState().IsKeyDown(Keys.I))
-				Position = Position + new Vector3(0, 0, 1);
-			if (Keyboard.GetState().IsKeyDown(Keys.K))
-				Position = Position - new Vector3(0, 0, 1);
-			if (Keyboard.GetState().IsKeyDown(Keys.U))
-				Position = Position + new Vector3(0, 1, 0);
+				Position += new Vector3(0, 1, 0);
 			if (Keyboard.GetState().IsKeyDown(Keys.O))
-				Position = Position - new Vector3(0, 1, 0);
+				Position -= new Vector3(0, 1, 0);
 		}
 	}
 }
