@@ -52,7 +52,8 @@
     <Compile Include="Code\Entities\Entity.cs" />
     <Compile Include="Code\Entities\Player.cs" />
     <Compile Include="Code\Camera.cs" />
-    <Compile Include="Code\Entities\CheckerBoard.cs" />
+    <Compile Include="Code\Entities\EndlessSpace.cs" />
+    <Compile Include="Code\EndlessSpace.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />

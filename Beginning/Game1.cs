@@ -16,7 +16,7 @@ namespace Beginning
 		GraphicsDeviceManager graphics;
 		Player player;
 		Camera camera;
-		CheckerBoard cB;
+		EndlessSpace cB;
 
 		public Game1 ()
 		{
@@ -33,17 +33,8 @@ namespace Beginning
 		protected override void Initialize ()
 		{
 			base.Initialize ();
-
 			cB.Initialize ();
-
-			camera = new Camera();
-			camera.Position = new Vector3(0, 100, 0);
-			camera.Target = Vector3.Zero;
-			camera.UpVector = Vector3.UnitZ;
-			camera.FieldOfView = MathHelper.PiOver2;
-			camera.NearClipPlane = 0.1f;
-			camera.FarClipPlane = 10000f;
-			camera.AspectRatio = graphics.GraphicsDevice.DisplayMode.AspectRatio;
+			camera = new Camera(graphics.GraphicsDevice.DisplayMode.AspectRatio);
 		}
 
 		/// <summary>
@@ -52,7 +43,7 @@ namespace Beginning
 		/// </summary>
 		protected override void LoadContent ()
 		{
-			cB = new CheckerBoard (graphics, this.GraphicsDevice);
+			cB = new EndlessSpace (graphics, this.GraphicsDevice);
 			cB.LoadContent ();
 
 			player = new Player ();

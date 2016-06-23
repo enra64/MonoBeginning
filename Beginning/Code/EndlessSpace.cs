@@ -4,15 +4,17 @@ using Microsoft.Xna.Framework;
 
 namespace Beginning
 {
-	public class CheckerBoard: Entity
+	public class EndlessSpace : Entity
 	{
 		GraphicsDeviceManager graphics;
 		GraphicsDevice graphicsDevice;
 		private VertexPositionTexture[] floorVerts;
 		BasicEffect effect;
-		Texture2D checkerboardTexture;
 
-		public CheckerBoard(GraphicsDeviceManager g, GraphicsDevice g2){
+		private Texture2D spriteTexture;
+		private Rectangle size;
+
+		public EndlessSpace(GraphicsDeviceManager g, GraphicsDevice g2){
 			graphics = g;
 			graphicsDevice = g2;
 		}
@@ -34,13 +36,14 @@ namespace Beginning
 			floorVerts [5].TextureCoordinate = floorVerts[2].TextureCoordinate;
 
 			// We’ll be assigning texture values later
-			effect = new BasicEffect (graphics.GraphicsDevice);
+			effect = new BasicEffect (graphicsDevice);
 		}
 
 		public void LoadContent(){
 			using (var stream = TitleContainer.OpenStream ("Content/checkerboard.png")){
-				checkerboardTexture = Texture2D.FromStream (graphicsDevice, stream);
+				spriteTexture = Texture2D.FromStream (graphicsDevice, stream);
 			}
+			size = new Rectangle(0, 0, (int)(spriteTexture.Width), (int)(spriteTexture.Height));
 		}
 
 		public override void Update(GameTime gt){

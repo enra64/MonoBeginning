@@ -5,50 +5,34 @@ namespace Beginning
 {
 	public class Camera
 	{
-		public float AspectRatio;
-		public float FarClipPlane;
-		public float FieldOfView;
-		public float NearClipPlane;
+		private float AspectRatio, FieldOfView = MathHelper.PiOver2, FarClipPlane = 10000f, NearClipPlane = .1f;
+		public Vector3 Target = Vector3.Zero, UpVector = Vector3.UnitZ;
+		private Vector3 _position;
 
-		public Vector3 Position;
-		public Vector3 Target;
-		public Vector3 UpVector;
+		public Matrix ViewMatrix { get { return Matrix.CreateLookAt (_position, Target, UpVector); } }
+		public Matrix ProjectionMatrix { get { return Matrix.CreatePerspectiveFieldOfView(FieldOfView, AspectRatio, NearClipPlane, FarClipPlane); }	}
 
-		public Matrix ViewMatrix {
-			get {
-				Vector3 target = Vector3.Zero;
-				Vector3 upVector = Vector3.UnitZ;
-
-				return Matrix.CreateLookAt (Position, target, upVector);
-			}
-		}
-
-		public Matrix ProjectionMatrix
-		{
-			get { return Matrix.CreatePerspectiveFieldOfView(FieldOfView, AspectRatio, NearClipPlane, FarClipPlane); }
+		public Camera(float aspectRatio) {
+			AspectRatio = aspectRatio;
+			_position = new Vector3 (0, 100, 0);
 		}
 
 		public void Update(GameTime gameTime)
 		{
 			if (Keyboard.GetState ().IsKeyDown (Keys.I))
-				Position = Vector3.Transform(Position, Matrix.Identity * Matrix.CreateRotationX(.05f));
+				_position = Vector3.Transform(_position, Matrix.CreateRotationX(.05f));
 			if (Keyboard.GetState ().IsKeyDown (Keys.K))
-				Position = Vector3.Transform(Position, Matrix.Identity * Matrix.CreateRotationX(-.05f));
-
-			if (Keyboard.GetState ().IsKeyDown (Keys.Z))
-				Position = Vector3.Transform(Position, Matrix.Identity * Matrix.CreateRotationY(.05f));
-			if (Keyboard.GetState ().IsKeyDown (Keys.H))
-				Position = Vector3.Transform(Position, Matrix.Identity * Matrix.CreateRotationY(-.05f));
-
-			if (Keyboard.GetState ().IsKeyDown (Keys.U))
-				Position = Vector3.Transform(Position, Matrix.Identity * Matrix.CreateRotationZ(.05f));
-			if (Keyboard.GetState ().IsKeyDown (Keys.J))
-				Position = Vector3.Transform(Position, Matrix.Identity * Matrix.CreateRotationZ(-.05f));
+				_position = Vector3.Transform(_position, Matrix.CreateRotationX(-.05f));
 			
-			if (Keyboard.GetState().IsKeyDown(Keys.L))
-				Position += new Vector3(0, 1, 0);
-			if (Keyboard.GetState().IsKeyDown(Keys.O))
-				Position -= new Vector3(0, 1, 0);
+			if (Keyboard.GetState ().IsKeyDown (Keys.U))
+				_position = Vector3.Transform(_position, Matrix.CreateRotationZ(.05f));
+			if (Keyboard.GetState ().IsKeyDown (Keys.J))
+				_position = Vector3.Transform(_position, Matrix.CreateRotationZ(-.05f));
+
+			if (Keyboard.GetState ().IsKeyDown (Keys.L))
+				_position = Vector3.Transform(_position, Matrix.CreateScale(1.02f));
+			if (Keyboard.GetState ().IsKeyDown (Keys.O))
+				_position = Vector3.Transform(_position, Matrix.CreateScale(.98f));
 		}
 	}
 }
