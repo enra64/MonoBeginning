@@ -16,7 +16,7 @@ namespace Beginning
 		GraphicsDeviceManager graphics;
 		Player player;
 		Camera camera;
-		EndlessSpace cB;
+		CheckerBoard cB;
 
 		public Game1 ()
 		{
@@ -43,7 +43,7 @@ namespace Beginning
 		/// </summary>
 		protected override void LoadContent ()
 		{
-			cB = new EndlessSpace (graphics, this.GraphicsDevice);
+			cB = new CheckerBoard (graphics, this.GraphicsDevice);
 			cB.LoadContent ();
 
 			player = new Player ();

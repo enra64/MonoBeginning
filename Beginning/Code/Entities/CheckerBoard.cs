@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Beginning
 {
-	public class EndlessSpace: Entity
+	public class CheckerBoard: Entity
 	{
 		GraphicsDeviceManager graphics;
 		GraphicsDevice graphicsDevice;
@@ -12,7 +12,7 @@ namespace Beginning
 		BasicEffect effect;
 		Texture2D checkerboardTexture;
 
-		public EndlessSpace(GraphicsDeviceManager g, GraphicsDevice g2){
+		public CheckerBoard(GraphicsDeviceManager g, GraphicsDevice g2){
 			graphics = g;
 			graphicsDevice = g2;
 		}

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 namespace Beginning
-{
+{/*
 	public class EndlessSpace : Entity
 	{
 		GraphicsDeviceManager graphics;
@@ -70,5 +70,5 @@ namespace Beginning
 					2);// The number of triangles to draw
 			}
 		}
-	}
+	}*/
 }
